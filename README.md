@@ -16,7 +16,11 @@ In this workshop, you will learn how :
 
  ## Install Bot Framework SDK v4 template for C#
 
- Open Visual Studio. 
+ 1. Open Visual Studio. Select Extenions on the menu bar and click on Manage Extenions.
+
+ 1. Search Bot and download Bot Framework v4 SDK Templates for Visual Studio.
 
  ![Install Bot Framework templates](media/install-bot-templates.png)
+
+ 1. Close Visual Studio and install extension.
  
