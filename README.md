@@ -14,5 +14,9 @@ In this workshop, you will learn how :
  * [Bot Framework Emulator](https://aka.ms/bot-framework-emulator-readme)
  * [Knowledge of ASP.Net Core](https://docs.microsoft.com/aspnet/core/) 
 
+ ## Install Bot Framework SDK v4 template for C#
 
+ Open Visual Studio. 
+
+ ![Install Bot Framework templates](media/install-bot-templates.png)
  
