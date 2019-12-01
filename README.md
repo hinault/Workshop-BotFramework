@@ -100,7 +100,7 @@ az ad app create --display-name "displayName" --password "AtLeastSixteenCharacte
 
 The above command outputs JSON with the key `appId`, save the value of this key for the ARM deployment, where it will be used for the `appId` parameter. The password provided will be used for the `appSecret` parameter.
 
-### 4. Deploy via ARM template
+#### 4. Deploy via ARM template
 
 You'll create a new resource group in Azure and then use the ARM template to create the resources specified in it. In this case, we are providing App Service Plan, Web App, and Bot Channels Registration.
 
@@ -114,3 +114,56 @@ az deployment create --name "<name-of-deployment>" --template-file "template-wit
 | template-file | The path to the ARM template. You can use the `template-with-new-rg.json` file provided in the `deploymentTemplates` folder of the project. |
 | location |Location. Values from: `az account list-locations`. You can configure the default location using `az configure --defaults location=<location>`. |
 | parameters | Provide deployment parameter values. `appId` value you got from running the `az ad app create` command. `appSecret` is the password you provided in the previous step. The `botId` parameter should be globally unique and is used as the immutable bot ID. It is also used to configure the display name of the bot, which is mutable. `botSku` is the pricing tier and can be F0 (Free) or S1 (Standard). `newAppServicePlanName` is the name of App Service Plan. `newWebAppName` is the name of the Web App you are creating. `groupName` is the name of the Azure resource group you are creating. `groupLocation` is the location of the Azure resource group. `newAppServicePlanLocation` is the location of the App Service Plan. |
+
+#### 5. Prepare your code for deployment
+
+You need to prepare your project files before you can deploy your bot. 
+
+```cmd
+az bot prepare-deploy --lang Csharp --code-dir "." --proj-file-path "MyBot.csproj"
+```
+
+You must provide the path to the .csproj file relative to --code-dir. This can be performed via the --proj-file-path argument. The command would resolve --code-dir and --proj-file-path to "./MyBot.csproj".
+
+> [!NOTE]
+>  For C# bots, the `az bot prepare-depoloy` command should generate a `.deployment` file in your bot project folder
+
+When using the non-configured [zip deploy API](https://github.com/projectkudu/kudu/wiki/Deploying-from-a-zip-file-or-url) to deploy your bot's code, Web App/Kudu's behavior is as follows:
+
+_Kudu assumes by default that deployments from zip files are ready to run and do not require additional build steps during deployment, such as npm install or dotnet restore/dotnet publish._
+
+As such, it is important to include your built code and with all necessary dependencies in the zip file being deployed to the Web App, otherwise your bot will not work as intended.
+
+> [!IMPORTANT]
+> Before zipping your project files, make sure that you are _in_ the project folder. 
+> - For C# bots, it is the folder that has the .csproj file. 
+>
+>**Within** the project folder, select all the files and folders you want included in your zip file before running the command to create the zip file, this will create a single zip file containing all selected files and folders.
+>
+> If your root folder location is incorrect, the **bot will fail to run in the Azure portal**.
+
+### Deploy code to Azure
+
+At this point we are ready to deploy the code to the Azure Web App. Run the following command from the command line to perform deployment using the kudu zip push deployment for a web app.
+
+```cmd
+az webapp deployment source config-zip --resource-group "<resource-group-name>" --name "<name-of-web-app>" --src "code.zip" 
+```
+
+| Option   | Description |
+|:---------|:------------|
+| resource-group | The name of the Azure resource group that contains your bot. (This will be the resource group you used or created when creating the app registration for your bot.) |
+| name | Name of the Web App you used earlier. |
+| src  | The path to the zipped file you created. |
+
+### Test in Web Chat
+
+1. In your browser, navigate to the [Azure portal](https://ms.portal.azure.com).
+2. In the left panel, click **Resource groups**.
+3. In the right panel, search for your group.
+4. Click on your group name.
+5. Click the link of your Bot Channel Registration.
+6. In the **Bot Channel Registration** panel, click **Test in Web Chat**.
+Alternatively, in the right panel, click the **Test** box.
+
+For more information about channel registration, see [Register a bot with Bot Service](https://docs.microsoft.com/azure/bot-service/bot-service-quickstart-registration?view=azure-bot-service-3.0).
