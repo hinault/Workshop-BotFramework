@@ -59,6 +59,10 @@ Send a message to your bot, and the bot will respond back with a message.
 > [!NOTE]
 > If you see that the message cannot be sent, you might need to restart your machine as ngrok didn't get the needed privileges on your system yet (only needs to be done one time).
 
+## Understand the Bot structure
+
+
+
 ## Deploy your bot
 
 ### Prepare for deployment
