@@ -310,3 +310,29 @@ The following diagram shows a sequence of waterfall steps and the stack operatio
 
 ![Waterfall dialogs](media/bot-builder-dialog-concept.png)
 
+### Create the main Dialog
+
+#### Install Dialogs librairy
+
+To use dialogs, install the Microsoft.Bot.Builder.Dialogs NuGet package.
+
+![Install dialogs librairy](media/install-dialog.png)
+
+#### Create RegisterData.cs
+
+The collected information are saved in an instance of RegisterData.cs. Add new Class in your project with this code :
+
+```
+ public class RegisterData
+    {
+            public string FirstName { get; set; }
+
+            public string LastName { get; set; }
+
+            public string Email { get; set; }
+
+           public int AmountPeople { get; set; } 
+    }
+```
+
+
