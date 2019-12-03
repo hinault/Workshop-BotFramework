@@ -335,4 +335,20 @@ The collected information are saved in an instance of RegisterData.cs. Add new C
     }
 ```
 
+#### Create RegisterDialog.cs
+
+Create new folder Dialogs and add new file RegisterDialog.cs. RegisterDialog class must derives from  the ComponentDialog class and have accessor property for RegisterData.
+
+```
+ public class RegisterDialog : ComponentDialog
+    {
+        private readonly IStatePropertyAccessor<RegisterData> _registerDataAccessor;
+
+    }
+```
+
+In the RegisterDialog constructor, create the waterfall steps, prompts and the waterfall dialog, and add them to the dialog set. The prompts need to be in the same dialog set in which they are used.
+
+
+
 
