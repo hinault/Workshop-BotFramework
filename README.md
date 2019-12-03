@@ -427,3 +427,28 @@ private async Task<DialogTurnResult> FirstNameStepAsync(WaterfallStepContext ste
         }
 ```
 
+
+Add DialogBot
+
+```
+ public class DialogBot<T> : ActivityHandler where T : Dialog
+    {
+
+       protected readonly Dialog Dialog;
+        protected readonly BotState ConversationState;
+        protected readonly BotState UserState;
+        protected readonly ILogger Logger;
+
+
+         public DialogBot(ConversationState conversationState, UserState userState, T dialog, ILogger<DialogBot<T>> logger)
+        {
+            ConversationState = conversationState;
+            UserState = userState;
+            Dialog = dialog;
+            Logger = logger;
+        }
+
+    }
+    ```
+
+
