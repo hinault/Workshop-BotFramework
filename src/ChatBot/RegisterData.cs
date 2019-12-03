@@ -13,6 +13,8 @@ namespace ChatBot
 
             public string Email { get; set; }
 
-           public int AmountPeople { get; set; } 
+            public string Profile { get; set; }
+
+          public int AmountPeople { get; set; } 
     }
 }

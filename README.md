@@ -331,6 +331,8 @@ The collected information are saved in an instance of RegisterData.cs. Add new C
 
             public string Email { get; set; }
 
+            public string Profile { get; set; }
+
            public int AmountPeople { get; set; } 
     }
 ```
@@ -359,10 +361,9 @@ public RegisterDialog (UserState userState) : base(nameof(RegisterDialog))
     {
         FirstNameStepAsync,
         LastNameStepAsync,
-        NameConfirmStepAsync,
         EmailStepAsync,
+        ProfileStepAsync,
         AmountPeopleStepAsync,
-        ConfirmStepAsync,
         SummaryStepAsync,
     };
 
@@ -370,6 +371,7 @@ public RegisterDialog (UserState userState) : base(nameof(RegisterDialog))
         AddDialog(new WaterfallDialog(nameof(WaterfallDialog), waterfallSteps));
         AddDialog(new TextPrompt(nameof(TextPrompt)));
         AddDialog(new TextPrompt("email", EmailPromptValidatorAsync));
+        AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
         AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>), AmountPeoplePromptValidatorAsync));
         AddDialog(new ConfirmPrompt(nameof(ConfirmPrompt)));
 
@@ -381,37 +383,35 @@ public RegisterDialog (UserState userState) : base(nameof(RegisterDialog))
 Method
 
 ```
-         private Task<DialogTurnResult> FirstNameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+private async Task<DialogTurnResult> FirstNameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+
+            throw new NotImplementedException();
+
+        }
+
+        private async Task<DialogTurnResult> LastNameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        private Task<DialogTurnResult> LastNameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        private async Task<DialogTurnResult> EmailStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        private Task<DialogTurnResult> NameConfirmStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+         private async Task<DialogTurnResult> ProfileStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        private Task<DialogTurnResult> EmailStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        private async Task<DialogTurnResult> AmountPeopleStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        private Task<DialogTurnResult> AmountPeopleStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
 
-        private Task<DialogTurnResult> ConfirmStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        private Task<DialogTurnResult> SummaryStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        private async Task<DialogTurnResult> SummaryStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
@@ -425,6 +425,5 @@ Method
         {
             throw new NotImplementedException();
         }
-
 ```
 
