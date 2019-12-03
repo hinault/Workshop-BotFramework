@@ -308,5 +308,5 @@ A waterfall dialog is a specific implementation of a dialog that is commonly use
 
 The following diagram shows a sequence of waterfall steps and the stack operations that take place. Details on the use of the dialog stack are below in the using dialogs section.
 
-
+![Waterfall dialogs](media/bot-builder-dialog-concept.png)
 
