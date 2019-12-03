@@ -289,3 +289,24 @@ az webapp deployment source config-zip --resource-group "<resource-group-name>" 
 Alternatively, in the right panel, click the **Test** box.
 
 For more information about channel registration, see [Register a bot with Bot Service](https://docs.microsoft.com/azure/bot-service/bot-service-quickstart-registration?view=azure-bot-service-3.0).
+
+## Add advanced conversational features to your bot
+
+### Key concepts of Dialogs
+
+#### About Dialogs 
+
+Dialogs are a central concept in the SDK, and provide a useful way to manage a conversation with the user. Dialogs are structures in your bot that act like functions in your bot's program; each dialog is designed to perform a specific task, in a specific order. You can specify the order of individual dialogs to guide the conversation, and invoke them in different ways - sometimes in response to a user, sometimes in response to some outside stimuli, or from other dialogs.
+
+#### Prompts
+
+Prompts, within the dialogs library, provide an easy way to ask the user for information and evaluate their response. For example for a number prompt, you specify the question or information you are asking for, and the prompt automatically checks to see if it received a valid number response. If it did, the conversation can continue; if it didn't, it will re-prompt the user for a valid answer.
+
+#### Waterfall dialogs
+
+A waterfall dialog is a specific implementation of a dialog that is commonly used to collect information from the user or guide the user through a series of tasks. Each step of the conversation is implemented as an asynchronous function that takes a waterfall step context (step) parameter. At each step, the bot prompts the user for input (or can begin a child dialog, but that it is often a prompt), waits for a response, and then passes the result to the next step. The result of the first function is passed as an argument into the next function, and so on.
+
+The following diagram shows a sequence of waterfall steps and the stack operations that take place. Details on the use of the dialog stack are below in the using dialogs section.
+
+
+
