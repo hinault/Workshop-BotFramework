@@ -40,37 +40,7 @@ public RegisterDialog (UserState userState) : base(nameof(RegisterDialog))
             InitialDialogId = nameof(WaterfallDialog);
         }
 
-        private Task<bool> AmountPeoplePromptValidatorAsync(PromptValidatorContext<int> promptContext, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        private Task<bool> EmailPromptValidatorAsync(PromptValidatorContext<string> promptContext, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        private Task<DialogTurnResult> SummaryStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        private Task<DialogTurnResult> ConfirmStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        private Task<DialogTurnResult> AmountPeopleStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        private Task<DialogTurnResult> EmailStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        private Task<DialogTurnResult> NameConfirmStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        private Task<DialogTurnResult> FirstNameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
@@ -80,14 +50,40 @@ public RegisterDialog (UserState userState) : base(nameof(RegisterDialog))
             throw new NotImplementedException();
         }
 
-        private Task<DialogTurnResult> FirstNameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        private Task<DialogTurnResult> NameConfirmStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
+        private Task<DialogTurnResult> EmailStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
 
-        
-        
+        private Task<DialogTurnResult> AmountPeopleStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        private Task<DialogTurnResult> ConfirmStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        private Task<DialogTurnResult> SummaryStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        private Task<bool> EmailPromptValidatorAsync(PromptValidatorContext<string> promptContext, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        private Task<bool> AmountPeoplePromptValidatorAsync(PromptValidatorContext<int> promptContext, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
