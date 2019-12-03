@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ChatBot
 {
-    public class UserProfile
+    public class RegisterData
     {
             public string FirstName { get; set; }
 
