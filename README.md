@@ -312,6 +312,17 @@ The following diagram shows a sequence of waterfall steps and the stack operatio
 
 ### Create the main Dialog
 
+In this workshop, we use a waterfall dialog, a few prompts, and a component dialog to create a simple interaction that asks the user a series of questions. The code uses a dialog to cycle through these steps:
+
+| Steps        | Prompt type  |
+|:-------------|:-------------|
+| Ask the user for their firstnname | Text prompt |
+| Ask the user for their last name | Text prompt |
+| Ask the user for their email | Text prompt with validation to only accept valid email|
+| Ask the user for their job title | Choice prompt |
+| Display the collected information | Confirm prompt |
+
+
 #### Install Dialogs librairy
 
 To use dialogs, install the Microsoft.Bot.Builder.Dialogs NuGet package.
@@ -426,6 +437,8 @@ private async Task<DialogTurnResult> FirstNameStepAsync(WaterfallStepContext ste
             throw new NotImplementedException();
         }
 ```
+
+
 
 
 Add DialogBot
