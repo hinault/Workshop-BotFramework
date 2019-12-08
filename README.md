@@ -178,7 +178,7 @@ public class BotController : ControllerBase
 Open the Bots/EchoBot.cs. Update the OnMembersAddedAsync method, replace the text Hello and Welcome! with the following text:
 
 ```
-"Hi! I'm a restaurant assistant bot. I can add help you with your reservation."
+"Hi! I'm a AI Bootcamp assistant bot. I can help you with your registration."
 ```
 
 ## Deploy your bot
