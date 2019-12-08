@@ -46,13 +46,13 @@ namespace ChatBot.Bots
                 {
                     var card = new HeroCard();
                     card.Title = "Welcome to Bot Workshop!";
-                    card.Text = @"You will learn how to build boot with conversation flow using Dialog Libray. Type anything for launch registration form.";
+                    card.Text = @"You will learn how to build bot with conversation flow using Dialog Libray. Type anything for launch registration form.";
                     card.Images = new List<CardImage>() { new CardImage("https://i0.wp.com/blog.3ie.fr/wp-content/uploads/2018/11/ChatBot-BotFramework.png") };
                     card.Buttons = new List<CardAction>()
                     {
-                      new CardAction(ActionTypes.OpenUrl, "Register", null, "Register", "Register", "Register"),
-                      new CardAction(ActionTypes.OpenUrl, "Ask a question about QnA Maker", null, "QnA", "Ask a question about QnA Maker", "QnA"),
-                       new CardAction(ActionTypes.OpenUrl, "Bot Framework Documentation", null, "Bot Framework Documentation", "Bot Framework Documentation", "https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-howto-deploy-azure?view=azure-bot-service-4.0"),
+                      new CardAction(ActionTypes.OpenUrl, "About Global AI Bootcamp", null, "About Global AI Bootcamp", "About Global AI Bootcamp", "https://globalai.community/global-ai-bootcamp/"),
+                     new CardAction(ActionTypes.OpenUrl, "Bot Framework Documentation", null, "Bot Framework Documentation", "Bot Framework Documentation", "https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-howto-deploy-azure?view=azure-bot-service-4.0"),
+                      new CardAction(ActionTypes.OpenUrl, "Bot Framework samples", null, "Bot Framework samples", "Bot Framework samples", "https://github.com/microsoft/BotBuilder-Samples"),
                      };
 
                     var response = MessageFactory.Attachment(card.ToAttachment());

@@ -83,7 +83,7 @@ public RegisterDialog (UserState userState) : base(nameof(RegisterDialog))
             return await stepContext.PromptAsync(nameof(ChoicePrompt),
                 new PromptOptions
                 {
-                    Prompt = MessageFactory.Text("Please select your ."),
+                    Prompt = MessageFactory.Text("Please select your job title."),
                     Choices = ChoiceFactory.ToChoices(new List<string> { "Developer", "Administrator", "Analyst", "Architect" }),
                 }, cancellationToken);
         }
