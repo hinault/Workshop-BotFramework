@@ -551,7 +551,7 @@ In last step, we call register data accessor to get RegisterData object (_regist
 
 ### Run the dialog
 
-Inside the Bots folder, ddd DialogBot.cs with this lines of code.
+Inside the Bots folder, add DialogBot.cs with this lines of code.
 
 ```
  public class DialogBot<T> : ActivityHandler where T : Dialog
@@ -574,4 +574,39 @@ Inside the Bots folder, ddd DialogBot.cs with this lines of code.
     }
     ```
 
+	The OnMessageActivityAsync handler uses the RunAsync method to start or continue the dialog. In OnTurnAsync, we use the bot's state management objects to persist any state changes to storage.
+
+	We must add this two methods in the DialogBot class.
+
+	  ```
+	 public override async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            await base.OnTurnAsync(turnContext, cancellationToken);
+
+
+
+
+            // Save any state changes that might have occured during the turn.
+            await ConversationState.SaveChangesAsync(turnContext, false, cancellationToken);
+            await UserState.SaveChangesAsync(turnContext, false, cancellationToken);
+        }
+
+        protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
+        {
+            Logger.LogInformation("Running dialog with Message Activity.");
+
+            // Run the Dialog with the new message Activity.
+            await Dialog.RunAsync(turnContext, ConversationState.CreateProperty<DialogState>(nameof(DialogState)), cancellationToken);
+
+
+        }
+  ```
+
+  Now, we will add welcome message to display it to the user at the beginning of every conversation. In this step we will learn how to use hero card and card action to send rich messages to the user.
+
+  For do that, add OnMembersAddedAsync method with this code in the DialogBot class.
+
+  ```
+
+  ```
 
