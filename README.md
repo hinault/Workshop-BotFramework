@@ -441,6 +441,7 @@ private async Task<DialogTurnResult> FirstNameStepAsync(WaterfallStepContext ste
 
 #### Step 1 : Ask first name
 
+The first steep call the Prompt dialog and ask the user first name.
 
 ```
  private async Task<DialogTurnResult> FirstNameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
@@ -454,6 +455,46 @@ private async Task<DialogTurnResult> FirstNameStepAsync(WaterfallStepContext ste
         }
 ```
 
+#### Step 2 : Ask last name 
+
+```
+ private async Task<DialogTurnResult> LastNameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+
+            stepContext.Values["firstname"] = (string)stepContext.Result;
+
+            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter your last name.") }, cancellationToken);
+
+        }
+```
+
+#### Step 2 : Ask 
+```
+```
+
+#### Step 2 : Ask 
+```
+```
+
+#### Step 2 : Ask 
+```
+```
+
+#### Step 2 : Ask 
+```
+```
+
+#### Step 2 : Ask 
+```
+```
+
+#### Step 2 : Ask 
+```
+```
+
+#### Step 2 : Ask 
+```
+```
 
 Add DialogBot
 
