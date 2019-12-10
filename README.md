@@ -392,8 +392,7 @@ public RegisterDialog (UserState userState) : base(nameof(RegisterDialog))
             InitialDialogId = nameof(WaterfallDialog);
         }
 ```
-
-Method
+You need to implement functions for each Wartefall step and validation.
 
 ```
 private async Task<DialogTurnResult> FirstNameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
@@ -440,7 +439,20 @@ private async Task<DialogTurnResult> FirstNameStepAsync(WaterfallStepContext ste
         }
 ```
 
+#### Step 1 : Ask first name
 
+
+```
+ private async Task<DialogTurnResult> FirstNameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+
+            // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
+            // Running a prompt here means the next WaterfallStep will be run when the user's response is received.
+
+            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter your fisrt name.") }, cancellationToken);
+
+        }
+```
 
 
 Add DialogBot
