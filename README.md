@@ -329,7 +329,7 @@ In this workshop, we use a waterfall dialog, a few prompts, and a component dial
 
 To use dialogs, install the Microsoft.Bot.Builder.Dialogs NuGet package.
 
-![Install dialogs librairy](media/install-dialog.png)
+![Install dialogs librairy](media/install-dialog.PNG)
 
 #### Create RegisterData.cs
 
@@ -572,13 +572,13 @@ Inside the Bots folder, add DialogBot.cs with this lines of code.
         }
 
     }
-    ```
+```
 
-	The OnMessageActivityAsync handler uses the RunAsync method to start or continue the dialog. In OnTurnAsync, we use the bot's state management objects to persist any state changes to storage.
+The OnMessageActivityAsync handler uses the RunAsync method to start or continue the dialog. In OnTurnAsync, we use the bot's state management objects to persist any state changes to storage.
 
-	We must add this two methods in the DialogBot class.
+We must add this two methods in the DialogBot class.
 
-	  ```
+```
 	 public override async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
         {
             await base.OnTurnAsync(turnContext, cancellationToken);
@@ -635,9 +635,9 @@ Inside the Bots folder, add DialogBot.cs with this lines of code.
 
 This bot uses the following services.
 
-*Basic services for a bot: a credential provider, an adapter, and the bot implementation.
-*Services for managing state: storage, user state, and conversation state.
-*The dialog the bot will use.
+* Basic services for a bot: a credential provider, an adapter, and the bot implementation.
+* Services for managing state: storage, user state, and conversation state.
+* The dialog the bot will use.
 
 We register services for the bot in Startup. These services are available to other parts of the code through dependency injection.
 
@@ -666,3 +666,5 @@ We register services for the bot in Startup. These services are available to oth
             services.AddTransient<IBot, DialogBot<RegisterDialog>>();
         }
  ```
+
+### Test the bot
