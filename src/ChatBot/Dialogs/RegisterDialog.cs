@@ -92,7 +92,7 @@ public RegisterDialog (UserState userState) : base(nameof(RegisterDialog))
         {
             stepContext.Values["profile"] = ((FoundChoice)stepContext.Result).Value;
 
-            return await stepContext.PromptAsync(nameof(NumberPrompt<int>), new PromptOptions { Prompt = MessageFactory.Text("Please enter number of attendes (max 3).") }, cancellationToken);
+            return await stepContext.PromptAsync(nameof(NumberPrompt<int>), new PromptOptions { Prompt = MessageFactory.Text("Please enter number of attendees (max 3).") }, cancellationToken);
 
         }
 

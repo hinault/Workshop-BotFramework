@@ -441,7 +441,9 @@ private async Task<DialogTurnResult> FirstNameStepAsync(WaterfallStepContext ste
 
 #### Step 1 : Ask first name
 
-The first steep call the Prompt dialog and ask the user first name.
+The first step call the Prompt dialog and ask the user first name.
+
+Behind the scenes, prompts are a two-step dialog. First, the prompt asks for input; second, it returns the valid value, or starts over from the beginning with a reprompt until it receives a valid input.
 
 ```
  private async Task<DialogTurnResult> FirstNameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
@@ -457,6 +459,8 @@ The first steep call the Prompt dialog and ask the user first name.
 
 #### Step 2 : Ask last name 
 
+The prompt result is retrieved across stepContext.Result.
+
 ```
  private async Task<DialogTurnResult> LastNameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
@@ -468,19 +472,51 @@ The first steep call the Prompt dialog and ask the user first name.
         }
 ```
 
-#### Step 2 : Ask 
+#### Step 3 : Ask  email
+
 ```
+private async Task<DialogTurnResult> EmailStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+
+            stepContext.Values["lastname"] = (string)stepContext.Result;
+
+            // We can send messages to the user at any point in the WaterfallStep.
+            await stepContext.Context.SendActivityAsync(MessageFactory.Text($"Thanks {(string)stepContext.Values["firstname"]} {stepContext.Result}."), cancellationToken);
+
+            // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
+            return await stepContext.PromptAsync("email", new PromptOptions { Prompt = MessageFactory.Text("Please enter your email.") }, cancellationToken);
+        }
 ```
 
-#### Step 2 : Ask 
+#### Step 4 : Ask job title
+
 ```
+ private async Task<DialogTurnResult> ProfileStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            stepContext.Values["email"] = (string)stepContext.Result;
+
+            return await stepContext.PromptAsync(nameof(ChoicePrompt),
+                new PromptOptions
+                {
+                    Prompt = MessageFactory.Text("Please select your job title."),
+                    Choices = ChoiceFactory.ToChoices(new List<string> { "Developer", "Administrator", "Analyst", "Architect" }),
+                }, cancellationToken);
+        }
 ```
 
-#### Step 2 : Ask 
+#### Step 5 : Ask number of people
+
 ```
+private async Task<DialogTurnResult> AmountPeopleStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            stepContext.Values["profile"] = ((FoundChoice)stepContext.Result).Value;
+
+            return await stepContext.PromptAsync(nameof(NumberPrompt<int>), new PromptOptions { Prompt = MessageFactory.Text("Please enter number of attendees (max 3).") }, cancellationToken);
+
+        }
 ```
 
-#### Step 2 : Ask 
+#### Step 6 : Ask 
 ```
 ```
 
