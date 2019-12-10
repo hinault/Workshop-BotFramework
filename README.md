@@ -668,3 +668,9 @@ We register services for the bot in Startup. These services are available to oth
  ```
 
 ### Test the bot
+
+Start your bot in Visual Studio. Start the emulator and then connect to your bot in the emulator.
+
+![Emulator running](media/emulator-running2.PNG)
+
+### Deploy the bot
