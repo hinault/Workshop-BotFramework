@@ -57,7 +57,7 @@ namespace ChatBot.Bots
                     var card = new HeroCard();
                     card.Title = "Welcome to Bot Workshop!";
                     card.Text = @"You will learn how to build bot with conversation flow using Dialog Libray. Type anything for launch registration form.";
-                    card.Images = new List<CardImage>() { new CardImage("https://i0.wp.com/blog.3ie.fr/wp-content/uploads/2018/11/ChatBot-BotFramework.png") };
+                    card.Images = new List<CardImage>() { new CardImage("https://github.com/hinault/Workshop-BotFramework/blob/master/media/ChatBot-BotFramework.png") };
                     card.Buttons = new List<CardAction>()
                     {
                       new CardAction(ActionTypes.OpenUrl, "About Global AI Bootcamp", null, "About Global AI Bootcamp", "About Global AI Bootcamp", "https://globalai.community/global-ai-bootcamp/"),
