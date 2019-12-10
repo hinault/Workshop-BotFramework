@@ -607,6 +607,62 @@ Inside the Bots folder, add DialogBot.cs with this lines of code.
   For do that, add OnMembersAddedAsync method with this code in the DialogBot class.
 
   ```
+    protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
+        {
+            foreach (var member in membersAdded)
+            {
+                if (member.Id != turnContext.Activity.Recipient.Id)
+                {
+                    var card = new HeroCard();
+                    card.Title = "Welcome to Bot Workshop!";
+                    card.Text = @"You will learn how to build bot with conversation flow using Dialog Libray. Type anything for launch registration form.";
+                    card.Images = new List<CardImage>() { new CardImage("https://github.com/hinault/Workshop-BotFramework/blob/master/media/ChatBot-BotFramework.png") };
+                    card.Buttons = new List<CardAction>()
+                    {
+                      new CardAction(ActionTypes.OpenUrl, "About Global AI Bootcamp", null, "About Global AI Bootcamp", "About Global AI Bootcamp", "https://globalai.community/global-ai-bootcamp/"),
+                     new CardAction(ActionTypes.OpenUrl, "Bot Framework Documentation", null, "Bot Framework Documentation", "Bot Framework Documentation", "https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-howto-deploy-azure?view=azure-bot-service-4.0"),
+                      new CardAction(ActionTypes.OpenUrl, "Bot Framework samples", null, "Bot Framework samples", "Bot Framework samples", "https://github.com/microsoft/BotBuilder-Samples"),
+                     };
 
+                    var response = MessageFactory.Attachment(card.ToAttachment());
+                    await turnContext.SendActivityAsync(response, cancellationToken);
+                }
+            }
+        }
   ```
 
+### Register services for the bot
+
+This bot uses the following services.
+
+*Basic services for a bot: a credential provider, an adapter, and the bot implementation.
+*Services for managing state: storage, user state, and conversation state.
+*The dialog the bot will use.
+
+We register services for the bot in Startup. These services are available to other parts of the code through dependency injection.
+
+ ```
+  // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // Create the Bot Framework Adapter with error handling enabled.
+            services.AddSingleton<IBotFrameworkHttpAdapter, AdapterWithErrorHandler>();
+
+            // Create the storage we'll be using for User and Conversation state. (Memory is great for testing purposes.)
+            services.AddSingleton<IStorage, MemoryStorage>();
+
+            // Create the User state. (Used in this bot's Dialog implementation.)
+            services.AddSingleton<UserState>();
+
+            // Create the Conversation state. (Used by the Dialog system itself.)
+            services.AddSingleton<ConversationState>();
+
+            // The Dialog that will be run by the bot.
+            services.AddSingleton<RegisterDialog>();
+
+            // Create the bot as a transient. In this case the ASP Controller is expecting an IBot.
+            services.AddTransient<IBot, DialogBot<RegisterDialog>>();
+        }
+ ```
