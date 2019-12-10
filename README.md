@@ -288,6 +288,8 @@ az webapp deployment source config-zip --resource-group "<resource-group-name>" 
 6. In the **Bot Channel Registration** panel, click **Test in Web Chat**.
 Alternatively, in the right panel, click the **Test** box.
 
+![Test in Web Chat](media/test-in-azure.PNG)
+
 For more information about channel registration, see [Register a bot with Bot Service](https://docs.microsoft.com/azure/bot-service/bot-service-quickstart-registration?view=azure-bot-service-3.0).
 
 ## Add advanced conversational features to your bot
