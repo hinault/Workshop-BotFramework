@@ -284,6 +284,11 @@ az webapp deployment source config-zip --resource-group "<resource-group-name>" 
 2. In the left panel, click **Resource groups**.
 3. In the right panel, search for your group.
 4. Click on your group name.
+
+You should now see several resources created for your bot.
+
+![bot ressources](media/bot-ressources.PNG)
+
 5. Click the link of your Bot Channel Registration.
 6. In the **Bot Channel Registration** panel, click **Test in Web Chat**.
 Alternatively, in the right panel, click the **Test** box.
