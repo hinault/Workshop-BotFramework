@@ -72,7 +72,8 @@ public RegisterDialog (UserState userState) : base(nameof(RegisterDialog))
             await stepContext.Context.SendActivityAsync(MessageFactory.Text($"Thanks {(string)stepContext.Values["firstname"]} {stepContext.Result}."), cancellationToken);
 
             // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-            return await stepContext.PromptAsync("email", new PromptOptions { Prompt = MessageFactory.Text("Please enter your email.") }, cancellationToken);
+            return await stepContext.PromptAsync("email", new PromptOptions { Prompt = MessageFactory.Text("Please enter your email."), 
+                RetryPrompt = MessageFactory.Text("Please enter valid email.") }, cancellationToken);
         }
 
 
@@ -92,7 +93,8 @@ public RegisterDialog (UserState userState) : base(nameof(RegisterDialog))
         {
             stepContext.Values["profile"] = ((FoundChoice)stepContext.Result).Value;
 
-            return await stepContext.PromptAsync(nameof(NumberPrompt<int>), new PromptOptions { Prompt = MessageFactory.Text("Please enter number of attendees (max 3).") }, cancellationToken);
+            return await stepContext.PromptAsync(nameof(NumberPrompt<int>), new PromptOptions { Prompt = MessageFactory.Text("Please enter number of attendees (max 3)."),
+            RetryPrompt = MessageFactory.Text("The value entered must be greater than 0 and less or equal than 3.") }, cancellationToken);
 
         }
 
