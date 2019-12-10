@@ -65,11 +65,11 @@ namespace ChatBot.Bots
         {
             Logger.LogInformation("Running dialog with Message Activity.");
 
-           
-          await Dialog.RunAsync(turnContext, ConversationState.CreateProperty<DialogState>(nameof(DialogState)), cancellationToken);
-                   
             // Run the Dialog with the new message Activity.
-                    }
+            await Dialog.RunAsync(turnContext, ConversationState.CreateProperty<DialogState>(nameof(DialogState)), cancellationToken);
+                   
+         
+        }
     }
 }
 

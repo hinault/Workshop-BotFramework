@@ -474,8 +474,10 @@ The prompt result is retrieved across stepContext.Result.
 
 #### Step 3 : Ask  email
 
+In EmailStepAsync, we specify a retry prompt for when the user's input fails to validate.
+
 ```
-private async Task<DialogTurnResult> EmailStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+ private async Task<DialogTurnResult> EmailStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
 
             stepContext.Values["lastname"] = (string)stepContext.Result;
@@ -484,7 +486,8 @@ private async Task<DialogTurnResult> EmailStepAsync(WaterfallStepContext stepCon
             await stepContext.Context.SendActivityAsync(MessageFactory.Text($"Thanks {(string)stepContext.Values["firstname"]} {stepContext.Result}."), cancellationToken);
 
             // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-            return await stepContext.PromptAsync("email", new PromptOptions { Prompt = MessageFactory.Text("Please enter your email.") }, cancellationToken);
+            return await stepContext.PromptAsync("email", new PromptOptions { Prompt = MessageFactory.Text("Please enter your email."), 
+                RetryPrompt = MessageFactory.Text("Please enter valid email.") }, cancellationToken);
         }
 ```
 
@@ -506,33 +509,49 @@ private async Task<DialogTurnResult> EmailStepAsync(WaterfallStepContext stepCon
 
 #### Step 5 : Ask number of people
 
+In AmountPeopleStepAsync, we specify a retry prompt for when the user's input fails to validate, either because it is in a format that the prompt can not parse, or the input fails a validation criteria. 
+
 ```
-private async Task<DialogTurnResult> AmountPeopleStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+ private async Task<DialogTurnResult> AmountPeopleStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             stepContext.Values["profile"] = ((FoundChoice)stepContext.Result).Value;
 
-            return await stepContext.PromptAsync(nameof(NumberPrompt<int>), new PromptOptions { Prompt = MessageFactory.Text("Please enter number of attendees (max 3).") }, cancellationToken);
+            return await stepContext.PromptAsync(nameof(NumberPrompt<int>), new PromptOptions { Prompt = MessageFactory.Text("Please enter number of attendees (max 3)."),
+            RetryPrompt = MessageFactory.Text("The value entered must be greater than 0 and less or equal than 3.") }, cancellationToken);
 
         }
 ```
 
-#### Step 6 : Ask 
+#### Step 6 : Summary
+
+In last step, we call register data accessor to get RegisterData object (_registerDataAccessor.GetAsync()) and then set the values with collected data. Finally we send the confirmation message before calling EndDialogAsync which ends the dialog.
+
 ```
+   private async Task<DialogTurnResult> SummaryStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
+            stepContext.Values["amountpeople"] = (int)stepContext.Result;
+
+            // Get the current registerData object from user state.
+            var registerData = await _registerDataAccessor.GetAsync(stepContext.Context, () => new RegisterData(), cancellationToken);
+
+            registerData.FirstName = (string)stepContext.Values["firstname"];
+            registerData.LastName = (string)stepContext.Values["lastname"];
+            registerData.Email = (string)stepContext.Values["email"];
+            registerData.Profile = (string)stepContext.Values["profile"];
+            registerData.AmountPeople = (int)stepContext.Values["amountpeople"];
+
+            var msg = $"Thanks for your registration. We are reserved {registerData.AmountPeople} seat for you.";
+
+            await stepContext.Context.SendActivityAsync(MessageFactory.Text(msg), cancellationToken);
+
+            // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is the end.
+            return await stepContext.EndDialogAsync(cancellationToken: cancellationToken);
+        }
 ```
 
-#### Step 2 : Ask 
-```
-```
+### Run the dialog
 
-#### Step 2 : Ask 
-```
-```
-
-#### Step 2 : Ask 
-```
-```
-
-Add DialogBot
+Inside the Bots folder, ddd DialogBot.cs with this lines of code.
 
 ```
  public class DialogBot<T> : ActivityHandler where T : Dialog
