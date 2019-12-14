@@ -96,7 +96,7 @@ These different handlers have a `turnContext` that provides information about th
 
 In this sample, we welcome a new user or echo back the message the user sent using the `SendActivityAsync` call. The outbound activity corresponds to the outbound HTTP POST request.
 
-```cs
+```csharp
 public class MyBot : ActivityHandler
 {
     protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
@@ -146,7 +146,7 @@ The controller implements `ControllerBase`, holds the adapter and bot that we se
 
 Here, you'll see the class proceeded by route and controller attributes. These assist the framework to route the messages appropriately and know which controller to use. If you change the value in the route attribute, that changes the endpoint the emulator or other channels use access your bot.
 
-```cs
+```csharp
 // This ASP Controller is created to handle a request. Dependency Injection will provide the Adapter and IBot
 // implementation at runtime. Multiple different IBot implementations running at different endpoints can be
 // achieved by specifying a more specific type for the bot constructor argument.
@@ -340,7 +340,7 @@ To use dialogs, install the Microsoft.Bot.Builder.Dialogs NuGet package.
 
 The collected information are saved in an instance of RegisterData.cs. Add new Class in your project with this code :
 
-```
+```csharp
  public class RegisterData
     {
             public string FirstName { get; set; }
@@ -359,7 +359,7 @@ The collected information are saved in an instance of RegisterData.cs. Add new C
 
 Create new folder Dialogs and add new file RegisterDialog.cs. RegisterDialog class must derives from  the ComponentDialog class and have accessor property for RegisterData.
 
-```
+```csharp
  public class RegisterDialog : ComponentDialog
     {
         private readonly IStatePropertyAccessor<RegisterData> _registerDataAccessor;
@@ -369,7 +369,7 @@ Create new folder Dialogs and add new file RegisterDialog.cs. RegisterDialog cla
 
 In the RegisterDialog constructor, create the waterfall steps, prompts and the waterfall dialog, and add them to the dialog set. The prompts need to be in the same dialog set in which they are used.
 
-```
+```csharp
 public RegisterDialog (UserState userState) : base(nameof(RegisterDialog))
 {
    _registerDataAccessor = userState.CreateProperty<RegisterData>("RegisterData");
@@ -399,7 +399,7 @@ public RegisterDialog (UserState userState) : base(nameof(RegisterDialog))
 ```
 You need to implement functions for each Wartefall step and validation.
 
-```
+```csharp
 private async Task<DialogTurnResult> FirstNameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
 
@@ -450,7 +450,7 @@ The first step call the Prompt dialog and ask the user first name.
 
 Behind the scenes, prompts are a two-step dialog. First, the prompt asks for input; second, it returns the valid value, or starts over from the beginning with a reprompt until it receives a valid input.
 
-```
+```csharp
  private async Task<DialogTurnResult> FirstNameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
 
@@ -466,7 +466,7 @@ Behind the scenes, prompts are a two-step dialog. First, the prompt asks for inp
 
 The prompt result is retrieved across stepContext.Result.
 
-```
+```csharp
  private async Task<DialogTurnResult> LastNameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
 
@@ -481,7 +481,7 @@ The prompt result is retrieved across stepContext.Result.
 
 In EmailStepAsync, we specify a retry prompt for when the user's input fails to validate.
 
-```
+```csharp
  private async Task<DialogTurnResult> EmailStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
 
@@ -498,7 +498,7 @@ In EmailStepAsync, we specify a retry prompt for when the user's input fails to 
 
 #### Step 4 : Ask job title
 
-```
+```csharp
  private async Task<DialogTurnResult> ProfileStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             stepContext.Values["email"] = (string)stepContext.Result;
@@ -516,7 +516,7 @@ In EmailStepAsync, we specify a retry prompt for when the user's input fails to 
 
 In AmountPeopleStepAsync, we specify a retry prompt for when the user's input fails to validate, either because it is in a format that the prompt can not parse, or the input fails a validation criteria. 
 
-```
+```csharp
  private async Task<DialogTurnResult> AmountPeopleStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             stepContext.Values["profile"] = ((FoundChoice)stepContext.Result).Value;
@@ -531,7 +531,7 @@ In AmountPeopleStepAsync, we specify a retry prompt for when the user's input fa
 
 In last step, we call register data accessor to get RegisterData object (_registerDataAccessor.GetAsync()) and then set the values with collected data. Finally we send the confirmation message before calling EndDialogAsync which ends the dialog.
 
-```
+```csharp
    private async Task<DialogTurnResult> SummaryStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             stepContext.Values["amountpeople"] = (int)stepContext.Result;
@@ -558,7 +558,7 @@ In last step, we call register data accessor to get RegisterData object (_regist
 
 Inside the Bots folder, add DialogBot.cs with this lines of code.
 
-```
+```csharp
  public class DialogBot<T> : ActivityHandler where T : Dialog
     {
 
@@ -583,7 +583,7 @@ The OnMessageActivityAsync handler uses the RunAsync method to start or continue
 
 We must add this two methods in the DialogBot class.
 
-```
+```csharp
 	 public override async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
         {
             await base.OnTurnAsync(turnContext, cancellationToken);
@@ -611,7 +611,7 @@ We must add this two methods in the DialogBot class.
 
   For do that, add OnMembersAddedAsync method with this code in the DialogBot class.
 
-  ```
+  ```csharp
     protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
         {
             foreach (var member in membersAdded)
