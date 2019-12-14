@@ -646,7 +646,7 @@ This bot uses the following services.
 
 We register services for the bot in Startup. These services are available to other parts of the code through dependency injection.
 
- ```
+ ```csharp
   // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -680,5 +680,16 @@ Start your bot in Visual Studio. Start the emulator and then connect to your bot
 
 ### Deploy the bot
 
+We are ready to deploy the code to the Azure Web App. Delete the previous created zip file. Create new one. Run the following command from the command line to perform deployment using the kudu zip push deployment for a web app.
+
+```cmd
+az webapp deployment source config-zip --resource-group "<resource-group-name>" --name "<name-of-web-app>" --src "code.zip" 
+```
+
+Go to Azure Portal and test your bot.
+
+![Test in Azure Portal](media/test-in-webchat2.PNG)
+
 ## Clean up resources
+
 Finally, If you don't expect to need these resources in the future, you can delete them by deleting the resource group. To do so, select the resource group for this workshop, select Delete, then confirm the name of the resource group to delete.
